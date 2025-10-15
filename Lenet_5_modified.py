@@ -16,37 +16,41 @@ class LeNet5(nn.Module):
     def __init__(self, num_classes=10, in_channels=3):
         super(LeNet5, self).__init__()
 
+        #defining the model architecture
+        
+    
         self.conv1 = nn.Conv2d(in_channels, 6, kernel_size=5, padding=0)  
-        self.tanh1 = nn.Tanh()
-        self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2)                
+        self.ReLU1 = nn.ReLU()
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)                
 
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5, padding=0)           
-        self.tanh2 = nn.Tanh()
-        self.pool2 = nn.AvgPool2d(kernel_size=2, stride=2)                
+        self.ReLU2 = nn.ReLU()
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)                
 
     
         self.conv3 = nn.Conv2d(16, 120, kernel_size=5, padding=0)         
-        self.tanh3 = nn.Tanh()
+        self.ReLU3 = nn.ReLU()
 
+        # fully connected layers
         self.fc1 = nn.Linear(120, 84)
-        self.tanh4 = nn.Tanh()
+        self.ReLU4 = nn.ReLU()
         self.fc2 = nn.Linear(84, num_classes)
 
     def forward(self, x):
         x=self.conv1(x)
-        x=self.tanh1(x)
+        x=self.ReLU1(x)
         x=self.pool1(x)
         
         x=self.conv2(x)
-        x=self.tanh2(x)
+        x=self.ReLU2(x)
         x=self.pool2(x)
 
         x=self.conv3(x)
-        x=self.tanh3(x)
+        x=self.ReLU3(x)
 
-        x = x.view(x.size(0), -1)
+        x = x.view(x.size(0), -1)  # flatten
         x = self.fc1(x)
-        x = self.tanh4(x)
+        x = self.ReLU4(x)
         x = self.fc2(x)
         return x
 
