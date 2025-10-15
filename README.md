@@ -1,0 +1,1 @@
+This repo is the implementation of the LeNet-5 model which is trained on the CIFAR-10 Dataset
